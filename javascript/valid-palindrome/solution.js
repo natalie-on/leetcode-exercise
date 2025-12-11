@@ -3,12 +3,15 @@
  * @return {boolean}
  */
 var isPalindrome = function(s) {
-    var format = /[^a-zA-Z0-9]/g;
-    let palindromeStr = '';
-    let replacedStr = s.replace(format, '').toLowerCase();    
-    for (let i = replacedStr.length - 1; i >= 0; --i) {
-        palindromeStr += replacedStr.toLowerCase().at(i);
-    }
+    const format = /[^a-zA-Z0-9]/g;
+    const replacedStr = s.replace(format, '').toLowerCase();
     
-    return (palindromeStr == replacedStr) ? true : false;
+    let j = replacedStr.length;
+    for (let i = 0; i <= replacedStr.length / 2; ++i) {
+        if (replacedStr.at(i) != replacedStr.at(j - 1)) {
+            return false;
+        }
+        --j;
+    }
+    return true;    
 };
