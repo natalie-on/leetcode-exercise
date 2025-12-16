@@ -2,18 +2,24 @@
  * @param {number[]} nums
  * @return {number}
  */
-var rob = function(nums) {
-    if (nums.length === 0) {
-        return 0;
-    }
+const rob = function(nums) {
+  const n = nums.length;
+  if (n <= 2) {
+    nums.sort(function(a, b) { return b - a; });
+    return nums[0];
+  }
 
-    let prev1 = 0;
-    let prev2 = 0;
-    for (let num of nums) {
-        let temp = prev1;
-        prev1 = Math.max(prev2 + num, prev1);
-        prev2 = temp;
-    }
+  let sumArr = [];
 
-    return prev1;
+  sumArr[0] = nums[0];
+  sumArr[1] = Math.max(nums[0], nums[1]);
+
+  for (let i = 2; i < n; ++i) {
+    const skipOpt = sumArr[i - 1];
+    const takeOpt = nums[i] + sumArr[i - 2];
+
+    sumArr[i] = Math.max(skipOpt, takeOpt);
+  }
+
+  return sumArr[n - 1];
 };
